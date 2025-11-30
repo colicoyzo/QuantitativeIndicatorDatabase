@@ -5,7 +5,7 @@ Database Models Module
 This module defines the ORM models for the quantitative indicator database.
 """
 
-from sqlalchemy import Column, Integer, String, Float, DateTime, create_engine
+from sqlalchemy import Column, Integer, String, Float, DateTime, create_engine, Index
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -26,6 +26,8 @@ class Indicator(Base):
     timestamp = Column(DateTime, nullable=False)
     frequency = Column(String(10), nullable=False)  # e.g., 'D' for daily, 'W' for weekly
     
+    __table_args__ = (Index('idx_indicators_symbol_timestamp', 'symbol', 'timestamp'),)
+    
     def __repr__(self):
         return f"<Indicator(name='{self.name}', symbol='{self.symbol}', value={self.value})>"
 
@@ -44,6 +46,8 @@ class StockData(Base):
     low_price = Column(Float)
     close_price = Column(Float)
     volume = Column(Integer)
+    
+    __table_args__ = (Index('idx_stock_data_symbol_date', 'symbol', 'date'),)
     
     def __repr__(self):
         return f"<StockData(symbol='{self.symbol}', date='{self.date}')>"
@@ -66,6 +70,8 @@ class FundamentalData(Base):
     net_income = Column(Float)
     total_assets = Column(Float)
     timestamp = Column(DateTime, nullable=False)
+    
+    __table_args__ = (Index('idx_fundamental_data_symbol_timestamp', 'symbol', 'timestamp'),)
     
     def __repr__(self):
         return f"<FundamentalData(symbol='{self.symbol}')>"
