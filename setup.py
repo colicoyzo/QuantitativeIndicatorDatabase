@@ -38,6 +38,8 @@ setup(
         "numpy>=1.19.0",
         "pandas>=1.2.0",
         "sqlalchemy>=1.4.0",
+        "flask>=2.0.0",
+        "futu-api>=3.0.0",
     ],
     extras_require={
         "dev": [

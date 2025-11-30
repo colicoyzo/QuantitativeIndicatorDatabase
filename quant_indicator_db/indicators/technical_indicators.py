@@ -79,6 +79,23 @@ def macd(data, fast_period=12, slow_period=26, signal_period=9):
     return macd_line[-len(signal_line):], signal_line, histogram
 
 
+def macd_sensitive(data, fast_period=8, slow_period=17, signal_period=9):
+    """
+    Sensitive Moving Average Convergence Divergence
+    Uses shorter periods to make the indicator more responsive to price changes
+    
+    Args:
+        data (list or np.array): Price data
+        fast_period (int): Fast EMA period (default: 8, shorter than standard 12)
+        slow_period (int): Slow EMA period (default: 17, shorter than standard 26)
+        signal_period (int): Signal line period (default: 9, same as standard)
+        
+    Returns:
+        tuple: (macd_line, signal_line, histogram)
+    """
+    return macd(data, fast_period, slow_period, signal_period)
+
+
 def rsi(data, period=14):
     """
     Relative Strength Index

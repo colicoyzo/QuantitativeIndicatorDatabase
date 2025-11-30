@@ -1,7 +1,3 @@
-# QuantitativeIndicatorDatabase
-
-
-
 
 QuantitativeIndicatorDatabase/
 ├── .gitignore                  # Git 忽略文件配置
@@ -9,6 +5,8 @@ QuantitativeIndicatorDatabase/
 ├── README.md                   # 项目说明文档
 ├── requirements.txt            # Python 依赖包列表
 ├── setup.py                    # Python 包安装配置
+├── database_schema.sql         # SQLite数据库建表语句
+├── database_schema_mysql.sql   # MySQL数据库建表语句
 ├── quant_indicator_db/         # 核心源代码目录
 │   ├── __init__.py             # Python 包标识文件
 │   ├── indicators/             # 各类量化指标实现
@@ -18,6 +16,7 @@ QuantitativeIndicatorDatabase/
 │   ├── data/                   # 数据处理模块
 │   │   ├── __init__.py
 │   │   ├── fetcher.py          # 数据获取逻辑
+│   │   ├── futu_fetcher.py     # 富途API数据获取逻辑
 │   │   └── processor.py        # 数据预处理与清洗
 │   ├── database/               # 数据库存储相关
 │   │   ├── __init__.py
@@ -27,20 +26,35 @@ QuantitativeIndicatorDatabase/
 │   │   ├── __init__.py
 │   │   ├── engine.py           # 回测核心逻辑
 │   │   └── strategy.py         # 策略模板及示例策略
+│   ├── mcp_service.py          # MCP服务，供Dify.ai调用
 │   └── utils/                  # 工具函数集合
 │       ├── __init__.py
 │       └── helpers.py          # 辅助工具函数
 ├── tests/                      # 单元测试目录
 │   ├── __init__.py
+│   ├── conftest.py             # pytest 配置文件
 │   ├── test_indicators/        # 指标测试用例
+│   │   ├── __init__.py
+│   │   ├── test_fundamental_indicators.py # 基本面指标测试
+│   │   └── test_technical_indicators.py   # 技术指标测试
 │   ├── test_data/              # 数据处理测试
-│   ├── test_database/          # 数据库操作测试
-│   └── conftest.py             # pytest 配置文件
+│   │   ├── __init__.py
+│   │   ├── test_fetcher.py     # 数据获取测试
+│   │   └── test_processor.py   # 数据预处理测试
+│   └── test_database/          # 数据库操作测试
+│       ├── __init__.py
+│       └── test_models.py      # 数据库模型测试
 ├── docs/                       # 文档资料
 │   └── index.md                # 入门指南
 ├── examples/                   # 示例脚本和演示程序
-│   └── demo_strategy.py        # 示例策略展示
+│   ├── __init__.py
+│   ├── demo_strategy.py        # 示例策略展示
+│   └── mcp_client_example.py   # MCP服务调用示例
 └── scripts/                    # 自动化脚本（部署、更新等）
+    ├── __init__.py
+    ├── init_database.py        # 初始化数据库脚本
+    ├── start_mcp_service.py    # 启动MCP服务脚本
+    ├── sync_futu_data.py       # 同步富途数据脚本
     └── update_indicators.py    # 定期更新指标数据脚本
 
 
